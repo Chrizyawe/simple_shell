@@ -19,7 +19,7 @@ char **create_new_environment(char **env)
 		exit(1);
 	}
 	for (a = 0; env[a] != NULL; a++)
-		environment[a] = _strdup(env[a]);
+		environment[a] = duplicate_string(env[a]);
 	environment[a] = NULL;
 	return (environment);
 }
@@ -49,23 +49,23 @@ void chdir_env(vars_t *vars, char *str)
 {
 	int len, a;
 
-	len = _strlen(str);
-	a = find_environ_index(*vars, str);
+	len = calculate_string_length(str);
+	a = find_env_index(*vars, str);
 	chdir((vars->env[a]) + len + 1);
 }
 /**
- * find_environ_index - a function that finds the index
+ * find_env_index - a function that finds the index
  * of an enviromental variable
  * @vars: structure with variables will be used
  * @str: environmental variable that needs to be found
  * Return: index of the environmental varaible
  */
 
-int find_environ_index(vars_t vars, char *str)
+int find_env_index(vars_t vars, char *str)
 {
 	int a, b, len;
 
-	len = _strlen(str);
+	len = calculate_string_length(str);
 	for (a = 0; vars.env[a] != NULL; a++)
 	{
 		for (b = 0; b < len; b++)

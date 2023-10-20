@@ -23,7 +23,7 @@ typedef struct command_history
 {
 	char *str;
 	int counter;
-	struct history *next;
+	struct command_history *next;
 } history_t;
 /**
  * struct variables -A variables for a shell
@@ -56,7 +56,7 @@ typedef struct variables
  */
 typedef struct builtin_command
 {
-	char *builtin_name;
+	char *name;
 	void (*f)(vars_t *);
 } builtin_command_t;
 
@@ -88,8 +88,11 @@ void display_help_for_set_environment(vars_t *vars);
 void display_help_for_unset_environment(vars_t *vars);
 void display_help_for_unalias(vars_t *vars);
 void display_help_for_help(vars_t *vars);
+void display_help_for_unset_env(vars_t *vars);
 void display_help_for_unset(vars_t *vars);
+void display_help_for_set_env(vars_t *vars);
 void display_help_for_alias(vars_t *vars);
+void new_help_alias(vars_t *vars);
 void display_custom_help(vars_t *vars);
 int calculate_factorial(int n);
 int custom_string_compare(char *str1, char *str2);
@@ -105,7 +108,7 @@ char *concatenate_strings(char *str1, char *str2);
 int print_integer(int n);
 int write_character(char c);
 void print_erro(char *str);
-void print_custom_error_message(vars_t *vars, char *message);
+void error_message(vars_t *vars, char *message);
 char *convert_unsigned_integer(unsigned int counter);
 int _atoi(char *str);
 char *generate_path(char *dir, char *command);
@@ -119,11 +122,14 @@ char **create_new_environment(char **env);
 int find_env_index(vars_t vars, char *str);
 char **resize_and_allocate(char **ptr, size_t *size);
 char *add_value_to_key(char *key, char *value);
-char **find_environment_key(char **env, char *key);
+char **find_env_key(char **env, char *key);
 void add_new_variable(vars_t *vars);
 void (*check_builtin(vars_t *vars))(vars_t *vars);
 void exit_shell(vars_t *vars);
 void display_env(vars_t *vars);
+void put_error_message(char *str);
+int simple_code(void);
+ssize_t print_str1(char *string);
 
 
 

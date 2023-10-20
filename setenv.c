@@ -17,11 +17,11 @@ void add_new_variable(vars_t *vars)
 	{
 		error_message(vars, NULL);
 		vars->status = 127;
-		new_exit(vars);
+		exit_shell(vars);
 	}
 	for (a = 0; vars->env[a] != NULL; a++)
 		newenv[a] = vars->env[a];
-	newenv[a] = add_value(vars->array_tokens[1], vars->array_tokens[2]);
+	newenv[a] = add_value_to_key(vars->array_tokens[1], vars->array_tokens[2]);
 	if (newenv[a] == NULL)
 	{
 		error_message(vars, NULL);
@@ -47,7 +47,7 @@ char **find_env_key(char **env, char *key)
 {
 	unsigned int a, b, len;
 
-	len = _strlen(key);
+	len = calculate_string_length(key);
 	for (a = 0; env[a] != NULL; a++)
 	{
 		for (b = 0; b < len; b++)
@@ -74,8 +74,8 @@ char *add_value_to_key(char *key, char *value)
 	unsigned int len1, len2, a, b;
 	char *new;
 
-	len1 = _strlen(key);
-	len2 = _strlen(value);
+	len1 = calculate_string_length(key);
+	len2 = calculate_string_length(value);
 	new = malloc(sizeof(char) * (len1 + len2 + 2));
 	if (new == NULL)
 		return (NULL);

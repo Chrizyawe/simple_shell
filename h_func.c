@@ -13,13 +13,13 @@ void *add_command_history_node(history_t **head, char *str)
 
 	if (!new)
 	{
-		free_listint(*head);
+		free_command_history_list(*head);
 	}
 
-	new->str = _strdup(str);
+	new->str = duplicate_string(str);
 	if (new->str == NULL)
 	{
-		free_listint(*head);
+		free_command_history_list(*head);
 	}
 
 	new->next = NULL;
@@ -74,8 +74,8 @@ void create_new_command_history(vars_t *vars)
 	if (vars->array_tokens[1] != NULL)
 	{
 		error_message(vars, ": Command not found: ");
-		print_message(vars->array_tokens[1]);
-		print_message("\n");
+		display_custom_message(vars->array_tokens[1]);
+		display_custom_message("\n");
 		return;
 	}
 	else
@@ -88,18 +88,18 @@ void create_new_command_history(vars_t *vars)
 		while (b < a)
 		{
 			counter++;
-			count = int_converter(counter);
-			print_message(count);
-			print_message(" ");
-			_puts3(temp2->str);
+			count = convert_unsigned_integer(counter);
+			display_custom_message(count);
+			display_custom_message(" ");
+			print_str1(temp2->str);
 			temp2 = temp2->next;
 			b++;
 			free(count);
 		}
 		temp2 = temp2->next;
-		vars->invert = temp2;
-		free_listint(temp);
-		free_listint(temp2);
+		vars->reverse_history = temp2;
+		free_command_history_list(temp);
+		free_command_history_list(temp2);
 		return;
 	}
 }

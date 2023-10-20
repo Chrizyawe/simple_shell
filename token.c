@@ -10,12 +10,12 @@ int count_tokens(char *str, const char *delim)
 	char *string, *token;
 	int a;
 
-	string = _strdup(str);
+	string = duplicate_string(str);
 	if (string == NULL)
 		return (-1);
-	token = _strtok(string, delim);
+	token = custom_strtok(string, delim);
 	for (a = 0; token != NULL; a++)
-		token = _strtok(NULL, delim);
+		token = custom_strtok(NULL, delim);
 	free(string);
 	return (a);
 }
@@ -39,12 +39,12 @@ char **tokenize_string(char *buf, char *delim)
 		perror("Fatal Error");
 		return (NULL);
 	}
-	while ((tokens[a] = _strtok(buf, delim)) != NULL)
+	while ((tokens[a] = custom_strtok(buf, delim)) != NULL)
 	{
 		a++;
 		if (a == count)
 		{
-			tokens = _realloc(tokens, &count);
+			tokens = resize_and_allocate(tokens, &count);
 			if (tokens == NULL)
 			{
 				perror("Fatal Error");
@@ -68,15 +68,15 @@ char **tokenize_child_string(int num_token, char *buf, const char *delim)
 	char **buffer;
 	char *token, *line_cp;
 
-	line_cp = _strdup(buf);
+	line_cp = duplicate_string(buf);
 	buffer = malloc(sizeof(char *) * (num_token + 1));
 	if (buffer == NULL)
 		return (NULL);
-	token = _strtok(line_cp, delim);
+	token = custom_strtok(line_cp, delim);
 	for (a = 0; token != NULL; a++)
 	{
-		buffer[a] = _strdup(token);
-		token = _strtok(NULL, delim);
+		buffer[a] = duplicate_string(token);
+		token = custom_strtok(NULL, delim);
 	}
 	buffer[a] = NULL;
 	free(line_cp);
@@ -93,13 +93,13 @@ char **token_interface(char *buf, const char *delim, int num_token)
 {
 	vars_t vars;
 
-	num_token = count_token(buf, delim);
+	num_token = count_tokens(buf, delim);
 	if (num_token == -1)
 	{
 		free(buf);
 		return (NULL);
 	}
-	vars.array_tokens = tokenize(num_token, buf, delim);
+	vars.array_tokens = tokenize_child_string(num_token, buf, delim);
 	if (vars.array_tokens == NULL)
 	{
 		free(buf);

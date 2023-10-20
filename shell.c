@@ -8,10 +8,10 @@
 static void sig_handler(int unused)
 {
 	(void)unused;
-	if (sig_flag == 0)
-		_puts("\n$ ");
+	if (signal_flag == 0)
+		print_string("\n$ ");
 	else
-		_puts("\n");
+		print_string("\n");
 }
 /**
  * main - main function used to run the shell
@@ -29,34 +29,34 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 	vars_t vars = {NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, NULL};
 
 	vars.argv = argv;
-	vars.env = new_environment(environment);
+	vars.env = create_new_environment(environment);
 
 	signal(SIGINT, sig_handler);
 
 	if (!isatty(STDIN_FILENO))
 		is_pipe = 1;
 	if (is_pipe == 0)
-		_puts("$ ");
-	sig_flag = 0;
+		print_string("$ ");
+	signal_flag = 0;
 
 	while (getline(&(vars.buffer), &len_buffer, stdin) != -1)
 	{
 		vars.counter++;
-		vars.commands = tokenizer(vars.buffer, ";");
+		vars.commands = tokenize_string(vars.buffer, ";");
 		for (a = 0; vars.commands && vars.commands[a] != NULL; a++)
 		{
-			vars.array_tokens = tokenizer(vars.commands[a], " \t\r\n\a");
+			vars.array_tokens = tokenize_string(vars.commands[a], " \t\r\n\a");
 			if (vars.array_tokens && vars.array_tokens[0])
-				if (builtin_check(&vars) == NULL)
+				if (check_builtin(&vars) == NULL)
 				{
-					fork_child(vars);
+					execute_child_process(vars);
 				}
 			free(vars.array_tokens);
 		}
 		free(vars.buffer);
 		free(vars.commands);
 		if (is_pipe == 0)
-			_puts("$ ");
+			print_string("$ ");
 		vars.buffer = NULL;
 	}
 	free_env(vars.env);
@@ -99,7 +99,7 @@ char *custom_strtok(char *str, const char *delim)
 		return (NULL);
 	for (i = 0; next_token[i] != '\0'; i++)
 	{
-		if (check_if_match(next_token[i], delim) == 0)
+		if (check_for_match(next_token[i], delim) == 0)
 			break;
 	}
 	if (next_token[i] == '\0' || next_token[i] == '#')
@@ -111,7 +111,7 @@ char *custom_strtok(char *str, const char *delim)
 	next_token = token_start;
 	for (i = 0; next_token[i] != '\0'; i++)
 	{
-		if (check_if_match(next_token[i], delim) == 1)
+		if (check_for_match(next_token[i], delim) == 1)
 			break;
 	}
 	if (next_token[i] == '\0')

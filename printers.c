@@ -19,7 +19,7 @@ int print_integer(int n)
 
 	for (; divisor != 0; )
 	{
-		len += _write_char('0' + num / divisor);
+		len += write_character('0' + num / divisor);
 		num %= divisor;
 		divisor = divisor / 10;
 	}
@@ -44,7 +44,7 @@ void put_error_message(char *str)
 {
 	long num, len;
 
-	num = _strlen(str);
+	num = calculate_string_length(str);
 	len = write(STDERR_FILENO, str, num);
 	if (len != num)
 
@@ -63,17 +63,17 @@ void error_message(vars_t *vars, char *message)
 {
 	char *counter;
 
-	_puts_error(vars->argv[0]);
-	_puts_error(": ");
+	put_error_message(vars->argv[0]);
+	put_error_message(": ");
 
-	counter = int_converter(vars->counter);
-	_puts_error(counter);
+	counter = convert_unsigned_integer(vars->counter);
+	put_error_message(counter);
 	free(counter);
-	_puts_error(": ");
-	_puts_error(vars->array_tokens[0]);
+	put_error_message(": ");
+	put_error_message(vars->array_tokens[0]);
 	if (message)
 	{
-		_puts_error(message);
+		put_error_message(message);
 	}
 	else
 		perror("");

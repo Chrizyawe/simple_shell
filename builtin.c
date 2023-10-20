@@ -15,7 +15,7 @@ void unset_env(vars_t *vars)
 		vars->status = 2;
 		return;
 	}
-	key = find_key(vars->env, vars->array_tokens[1]);
+	key = find_env_key(vars->env, vars->array_tokens[1]);
 	if (key == NULL)
 	{
 		error_message(vars, ": No variable to unset");
@@ -28,7 +28,7 @@ void unset_env(vars_t *vars)
 	{
 		error_message(vars, NULL);
 		vars->status = 127;
-		new_exit(vars);
+		exit_shell(vars);
 	}
 	for (a = 0; vars->env[a] != *key; a++)
 	{
@@ -58,14 +58,14 @@ void set_env(vars_t *vars)
 		vars->status = 2;
 		return;
 	}
-	key = find_key(vars->env, vars->array_tokens[1]);
+	key = find_env_key(vars->env, vars->array_tokens[1]);
 	if (key == NULL)
 	{
-		add_new(vars);
+		add_new_variable(vars);
 	}
 	else
 	{
-		var = add_value(vars->array_tokens[1], vars->array_tokens[2]);
+		var = add_value_to_key(vars->array_tokens[1], vars->array_tokens[2]);
 		if (var == NULL)
 		{
 			error_message(vars, NULL);
@@ -92,8 +92,8 @@ void _env(vars_t *vars)
 
 	for (a = 0; vars->env[a]; a++)
 	{
-		_puts(vars->env[a]);
-		_puts("\n");
+		print_string(vars->env[a]);
+		print_string("\n");
 	}
 	vars->status = 0;
 }
@@ -102,11 +102,11 @@ void _env(vars_t *vars)
  * @vars: an array of variables
  * Return: void
  */
-void exit_shell(vars_t *vars);
+void exit_shell(vars_t *vars)
 {
 	int a = 0;
 
-	if (_strcmprev(vars->array_tokens[0], "exit")
+	if (reverse_string_compare(vars->array_tokens[0], "exit")
 			== 0 && vars->array_tokens[1] != NULL)
 	{
 		a = _atoi(vars->array_tokens[1]);
@@ -114,8 +114,8 @@ void exit_shell(vars_t *vars);
 		{
 			vars->status = 2;
 			error_message(vars, ": Illegal number: ");
-			print_message(vars->array_tokens[1]);
-			print_message("\n");
+			display_custom_message(vars->array_tokens[1]);
+			display_custom_message("\n");
 			return;
 		}
 		vars->status = a;
@@ -132,23 +132,23 @@ void exit_shell(vars_t *vars);
  * @vars: variables
  * Return: pointer to the function
  */
-void (*check_builtin(vars_t *vars))(vars_t *vars);
+void (*check_builtin(vars_t *vars))(vars_t *vars)
 {
 	unsigned int a;
-	builtins_t check[] = {
-		{"exit", new_exit},
+	builtin_command_t check[] = {
+		{"exit", exit_shell},
 		{"env", _env},
 		{"setenv", set_env},
 		{"unsetenv", unset_env},
-		{"cd", new_cd},
-		{"help", new_help},
+		{"cd", change_directory},
+		{"help", display_custom_help},
 
 
 		{NULL, NULL}};
 
 	for (a = 0; check[a].f != NULL; a++)
 	{
-		if (_strcmprev(vars->array_tokens[0], check[a].name) == 0)
+		if (reverse_string_compare(vars->array_tokens[0], check[a].name) == 0)
 			break;
 	}
 	if (check[a].f != NULL)

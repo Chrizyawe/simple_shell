@@ -14,8 +14,8 @@ void change_directory(vars_t *vars)
 		index = find_env_index(*vars, "HOME");
 		chdir((vars->env[index]) + 5);
 	}
-	else if (_strcmprev(vars->array_tokens[1], "-") == 0)
-		print_str(vars->array_tokens[1], 0);
+	else if (reverse_string_compare(vars->array_tokens[1], "-") == 0)
+		print_custom_string(vars->array_tokens[1], 0);
 	else
 		chdir(vars->array_tokens[1]);
 }
@@ -26,10 +26,10 @@ void change_directory(vars_t *vars)
  */
 void print_cd(vars_t *vars)
 {
-	print_str("-bash: cd: ", 1);
-	print_str(vars->array_tokens[1], 1);
-	print_str(": invalid option", 0);
-	print_str("cd: usage: cd [-] [--]", 0);
+	print_custom_string("-bash: cd: ", 1);
+	print_custom_string(vars->array_tokens[1], 1);
+	print_custom_string(": invalid option", 0);
+	print_custom_string("cd: usage: cd [-] [--]", 0);
 }
 /**
  * print_cd_2 - a function that prints error message
@@ -39,7 +39,7 @@ void print_cd(vars_t *vars)
  */
 void print_cd_2(vars_t *vars)
 {
-	print_str("-bash: cd: ", 1);
-	print_str(vars->array_tokens[1], 1);
-	print_str(": Not a directory", 0);
+	print_custom_string("-bash: cd: ", 1);
+	print_custom_string(vars->array_tokens[1], 1);
+	print_custom_string(": Not a directory", 0);
 }

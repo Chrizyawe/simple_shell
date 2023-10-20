@@ -5,15 +5,13 @@
  * @vars: if command matches a builtin name, text file is sent to stdout
  * Return: 0 if sucess
  */
-void display_help_for_alias(vars_t *vars)
 void new_help_alias(vars_t *vars)
-
 {
 	char *file;
 	int fd, r;
 	char *s;
 
-	if (_strcmprev(vars->array_tokens[1], "alias") == 0)
+	if (reverse_string_compare(vars->array_tokens[1], "alias") == 0)
 	{
 		file = "/home/shell_test/shelltestenviroment/helpfiles/alias";
 		fd = open(file, O_RDWR);
@@ -21,16 +19,16 @@ void new_help_alias(vars_t *vars)
 		s = malloc(300);
 		if (s == NULL)
 		{
-			_puts_error("Fatal Error");
+			put_error_message("Fatal Error");
 			return;
 		}
 		while ((r = read(fd, s, 300)) > 0)
 		{
 			r = write(1, s, r);
-			print_message("\n");
+			display_custom_message("\n");
 			if (r == -1)
 			{
-				_puts_error("Fatal Error");
+				put_error_message("Fatal Error");
 			return;
 			}
 		}
@@ -39,7 +37,7 @@ void new_help_alias(vars_t *vars)
 	}
 
 	else
-		new_help_else(vars);
+		new_help_alias(vars);
 }
 /**
  * display_help_for_other_commands -error message if not command found
@@ -50,13 +48,13 @@ void display_help_for_other_commands(vars_t *vars)
 {
 
 	error_message(vars, ": no help topics match: `");
-	_puts_error(vars->array_tokens[1]);
+	put_error_message(vars->array_tokens[1]);
 
-	_puts_error("'.  Try `help help' or `man -k ");
-	_puts_error(vars->array_tokens[1]);
-	_puts_error("' or `info ");
-	_puts_error(vars->array_tokens[1]);
-	_puts_error("'.");
+	put_error_message("'.  Try `help help' or `man -k ");
+	put_error_message(vars->array_tokens[1]);
+	put_error_message("' or `info ");
+	put_error_message(vars->array_tokens[1]);
+	put_error_message("'.");
 
-	_puts_error("\n");
+	put_error_message("\n");
 }

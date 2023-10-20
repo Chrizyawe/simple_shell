@@ -43,8 +43,8 @@ char *generate_path(char *dir, char *command)
 
 	if (dir == NULL || command == NULL)
 		return (NULL);
-	dir_len = _strlen(dir) + 1;
-	command_len = _strlen(command) + 1;
+	dir_len = calculate_string_length(dir) + 1;
+	command_len = calculate_string_length(command) + 1;
 	len = dir_len + command_len;
 
 	built = malloc(sizeof(char) * len);
@@ -72,7 +72,7 @@ void display_custom_message(char *string)
 {
 	long num, len;
 
-	num = _strlen(string);
+	num = calculate_string_length(string);
 	len = write(STDOUT_FILENO, string, num);
 	if (len != num)
 
@@ -82,11 +82,11 @@ void display_custom_message(char *string)
 	}
 }
 /**
- * print_custom_string - a function that writes a string to standard output
+ * print_string - a function that writes a string to standard output
  * @string: the string to write
  * Return: number of chars written
  */
-ssize_t print_custom_string(char *string);
+ssize_t print_str1(char *string)
 {
 	ssize_t a, len;
 

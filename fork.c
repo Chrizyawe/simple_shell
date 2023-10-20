@@ -6,7 +6,7 @@
  * @vars: an array of pointers and a string
  * Return: void
  */
-void execute_child_process(vars_t vars);
+void execute_child_process(vars_t vars)
 {
 	pid_t id;
 	int check, status;
@@ -19,14 +19,14 @@ void execute_child_process(vars_t vars);
 	else
 	{
 		temp_command = vars.array_tokens[0];
-		command = path_finder(vars, vars.array_tokens[0]);
+		command = find_executable_path(vars, vars.array_tokens[0]);
 		if (command == NULL)
 		{
 			check = stat(temp_command, &buf);
 			if (check == -1)
 			{
-				print_error(vars.argv[0], vars.counter, temp_command);
-				print_str(": not found", 0);
+				print_error_message(vars.argv[0], vars.counter, temp_command);
+				print_custom_string(": not found", 0);
 
 				exit(100);
 			}
@@ -36,7 +36,7 @@ void execute_child_process(vars_t vars);
 		if (vars.array_tokens[0] != NULL)
 		{
 			if (execve(vars.array_tokens[0], vars.array_tokens, vars.env) == -1)
-				execute_error(vars.argv[0], vars.counter, temp_command);
+				handle_execution_error(vars.argv[0], vars.counter, temp_command);
 		}
 	}
 }
@@ -48,7 +48,7 @@ void execute_child_process(vars_t vars);
  * @vars: structure with variables
  * Return: On success a string with the full path of the program
  */
-char *find_executable_path(vars_t vars, char *command);
+char *find_executable_path(vars_t vars, char *command)
 {
 	char *str = "PATH";
 	char *constructed;
@@ -56,8 +56,8 @@ char *find_executable_path(vars_t vars, char *command);
 	int index, a;
 	char *dir;
 
-	index = find_environ_index(vars, str);
-	path_tokens = tokenize_path(vars, index, str);
+	index = find_env_index(vars, str);
+	path_tokens = tokenize_path_directories(vars, index, str);
 	if (path_tokens == NULL)
 		return (NULL);
 
@@ -69,7 +69,7 @@ char *find_executable_path(vars_t vars, char *command);
 		free(path_tokens);
 		return (NULL);
 	}
-	constructed = create_path(dir, command);
+	constructed = generate_path(dir, command);
 	if (constructed == NULL)
 	{
 		for (a = 0; path_tokens[a] != NULL; a++)
@@ -97,7 +97,7 @@ char **tokenize_path_directories(vars_t vars, int idx, char *str)
 	char **path_tokens;
 	const char *delim = ":\n";
 
-	len = _strlen(str);
+	len = calculate_string_length(str);
 
 	env_var = vars.env[idx] + (len + 1);
 	path_tokens = token_interface(env_var, delim, token_count);

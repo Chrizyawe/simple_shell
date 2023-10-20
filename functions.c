@@ -6,7 +6,7 @@
  * @str2: Second string
  * Return: 0 if strings match and 1 otherwise
  */
-int custom_string_compare(char *str1, char *str2);
+int custom_string_compare(char *str1, char *str2)
 {
     int a;
 
@@ -31,7 +31,7 @@ int custom_string_compare(char *str1, char *str2);
  * Return: void
  */
 
-void handle_fatal_error(void);
+void handle_fatal_error(void)
 {
 	perror("Fatal Error");
 	exit(100);
@@ -43,13 +43,13 @@ void handle_fatal_error(void);
  * @missing_command: A pointer to a string representing the command that was not found
  * Return: void
  */
-void print_error_message(char *argv, int command_count, char *missing_command);
+void print_error_message(char *argv, int command_count, char *missing_command)
 {
-	print_str(argv, 1);
-	print_str(": ", 1);
-	print_number(command_count);
-	print_str(": ", 1);
-	print_str(missing_command, 1);
+	print_custom_string(argv, 1);
+	print_custom_string(": ", 1);
+	print_integer(command_count);
+	print_custom_string(": ", 1);
+	print_custom_string(missing_command, 1);
 }
 /**
  * handle_execution_error - a function that handles execution errors
@@ -57,10 +57,10 @@ void print_error_message(char *argv, int command_count, char *missing_command);
  * @command_count: An integer representing the number of commands running on the shell
  * @failed_command: A pointer to a string representing the command that failed
  */
-void handle_execution_error(char *argv, int command_count, char *failed_command);
+void handle_execution_error(char *argv, int command_count, char *failed_command)
 {
-	print_error(argv, command_count, failed_command);
-	print_str(": ", 1);
+	print_error_message(argv, command_count, failed_command);
+	print_custom_string(": ", 1);
 	perror("");
 	exit(1);
 }
@@ -70,7 +70,7 @@ void handle_execution_error(char *argv, int command_count, char *failed_command)
  * @newline:  An integer parameter; if it's equal to 0, a newline character is printed after the string
  * Return: void
  */
-void print_custom_string(char *str, int newline);
+void print_custom_string(char *str, int newline)
 {
 	int a;
 
