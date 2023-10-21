@@ -83,7 +83,7 @@ char *find_executable_path(vars_t vars, char *command)
 	return (constructed);
 }
 /**
- * tokenize_path_directories - a function that separates a string of path as an array
+ * tokenize_path_directories - a function that separates a string
  * of strings containing the path directories
  * @vars: a structure with variables
  * @idx: index of the path in the environment variables

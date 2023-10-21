@@ -30,7 +30,7 @@ int _atoi(char *str)
 	return (n);
 }
 /**
- * generate	_path - Combines two strings one representing the path directory and
+ * generate_path - Combines two strings one representing the path directory &
  * another representing the command file
  * @dir: Representing the path directory
  * @command: Representing a file in the path directory
@@ -64,7 +64,7 @@ char *generate_path(char *dir, char *command)
 	return (built);
 }
 /**
- * display_custom_message - a function that prints a string to the standard output
+ * display_custom_message - a function that prints a string to the stdout
  * @string: the string to print
  * Return: void
  */
@@ -82,7 +82,7 @@ void display_custom_message(char *string)
 	}
 }
 /**
- * print_string - a function that writes a string to standard output
+ * print_str1 - a function that writes a string to standard output
  * @string: the string to write
  * Return: number of chars written
  */

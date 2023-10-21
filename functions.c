@@ -8,23 +8,23 @@
  */
 int custom_string_compare(char *str1, char *str2)
 {
-    int a;
+	int a;
 
-    for (a = 0; str1[a] != '\0' && str2[a] != '\0'; a++)
-    {
-        if (str1[a] != str2[a])
-        {
-            return (str1[a] - str2[a]);
-        }
-    }
-    if (str1[a] == '\0' && str2[a] == '\0')
-    {
-        return 0;
-    }
-    else
-    {
-        return 1;
-    }
+	for (a = 0; str1[a] != '\0' && str2[a] != '\0'; a++)
+	{
+		if (str1[a] != str2[a])
+		{
+			return (str1[a] - str2[a]);
+		}
+	}
+	if (str1[a] == '\0' && str2[a] == '\0')
+	{
+		return (0);
+	}
+	else
+	{
+		return (1);
+	}
 }
 /**
  * handle_fatal_error - a function that handles fatal error
@@ -37,10 +37,10 @@ void handle_fatal_error(void)
 	exit(100);
 }
 /**
- * print_error_message - a function that prints an error message if command not found
+ * print_error_message - a function that prints an error message
  * @argv: the name of the shell program
- * @command_count: An integer representing the number of commands running on the shell
- * @missing_command: A pointer to a string representing the command that was not found
+ * @command_count: An integer representing the number of commands
+ * @missing_command: A pointer to a string representing the command
  * Return: void
  */
 void print_error_message(char *argv, int command_count, char *missing_command)
@@ -54,12 +54,12 @@ void print_error_message(char *argv, int command_count, char *missing_command)
 /**
  * handle_execution_error - a function that handles execution errors
  * @argv: the name of the shell program
- * @command_count: An integer representing the number of commands running on the shell
- * @failed_command: A pointer to a string representing the command that failed
+ * @command_count: An integer representing the number of commands running
+ * @failed_comm: A pointer to a string representing the command that failed
  */
-void handle_execution_error(char *argv, int command_count, char *failed_command)
+void handle_execution_error(char *argv, int command_count, char *failed_comm)
 {
-	print_error_message(argv, command_count, failed_command);
+	print_error_message(argv, command_count, failed_comm);
 	print_custom_string(": ", 1);
 	perror("");
 	exit(1);
@@ -67,7 +67,7 @@ void handle_execution_error(char *argv, int command_count, char *failed_command)
 /**
  * print_custom_string - a function that prints a string character by character
  * @str: A pointer to a string to be printed
- * @newline:  An integer parameter; if it's equal to 0, a newline character is printed after the string
+ * @newline:  An integer parameter; if it's equal to 0, a newline characte
  * Return: void
  */
 void print_custom_string(char *str, int newline)

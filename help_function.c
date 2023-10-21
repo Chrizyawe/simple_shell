@@ -114,7 +114,7 @@ void display_help_for_unset(vars_t *vars)
 		display_help_for_unset_env(vars);
 }
 /**
- * display_help_for_unsetenv - help builtin command unsetenv
+ * display_help_for_unset_env - help builtin command unsetenv
  * @vars: if command matches a builtin name, text file is sent to stdout
  * Return: 0 if sucess
  */

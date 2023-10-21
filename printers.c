@@ -79,7 +79,7 @@ void error_message(vars_t *vars, char *message)
 		perror("");
 }
 /**
- * convert_unsigned_integer - a function that converts an unsigned int to a string
+ * convert_unsigned_integer - a function that converts an unsigned int to a str
  * @counter: the unsigned int to be converter
  * Return: the converter unsigned integer
  */

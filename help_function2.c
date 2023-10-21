@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * display_help_for_alias - help builtin command alias
+ * new_help_alias - help builtin command alias
  * @vars: if command matches a builtin name, text file is sent to stdout
  * Return: 0 if sucess
  */

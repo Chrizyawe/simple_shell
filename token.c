@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * count_token - a function used for counting token
+ * count_tokens - a function used for counting token
  * @str: the string
  * @delim: the delimiter
  * Return: number of tokens
@@ -19,8 +19,8 @@ int count_tokens(char *str, const char *delim)
 	free(string);
 	return (a);
 }
-/** 
- * tokenizer_string - a function that tokenizes
+/**
+ * tokenize_string - a function that tokenizes
  * a buffer with a delimiter
  * @buf: the buffer to tokenize
  * @delim: the delimiter to use to tokenize

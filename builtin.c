@@ -43,7 +43,7 @@ void unset_env(vars_t *vars)
 	vars->status = 0;
 }
 /**
- * configure_env - a function that configure an environment variable
+ * set_env - a function that configure an environment variable
  * @vars:  pointer to an array of variables
  * Return: void
  */
@@ -81,7 +81,7 @@ void set_env(vars_t *vars)
 	vars->status = 0;
 }
 /**
- * display_env - a function that display the current environment variable
+ * _env - a function that display the current environment variable
  * @vars: an arrays of variables
  * Return: void
  */
@@ -128,7 +128,7 @@ void exit_shell(vars_t *vars)
 	exit(vars->status);
 }
 /**
- * builtin_check - a function that checks if the command is a builtin
+ * check_builtin - a function that checks if the command is a builtin
  * @vars: variables
  * Return: pointer to the function
  */

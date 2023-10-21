@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * new_help - help builtin command
+ * display_custom_help - help builtin command
  * @vars: if command matches a builtin name, text file is sent to stdout
  * Return: 0 if sucess
  */

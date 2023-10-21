@@ -96,7 +96,7 @@ void new_help_alias(vars_t *vars);
 void display_custom_help(vars_t *vars);
 int calculate_factorial(int n);
 int custom_string_compare(char *str1, char *str2);
-void handle_execution_error(char *argv, int command_count, char *failed_command);
+void handle_execution_error(char *argv, int command_count, char *failed_comm);
 void handle_fetal_error(void);
 void print_error_message(char *argv, int command_count, char *missing_command);
 void print_custom_string(char *str, int newline);

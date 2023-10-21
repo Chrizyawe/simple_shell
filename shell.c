@@ -64,7 +64,7 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 	exit(vars.status);
 }
 /**
- * check_for_match - a function that checks if a character matches any in string
+ * check_for_match - a function that checks if a character matches any in str
  * @c: character to check
  * @str: string to check for the character
  * Return: 1 if match and 0 if not match
