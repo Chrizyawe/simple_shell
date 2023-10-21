@@ -14,7 +14,7 @@
 #include <fcntl.h>
 
 /**
- * struct history -  structure for each command read
+ * struct command_history -  structure for each command read
  * @str: character string
  * @counter: An integer representing the number of inputs or commands
  * @next: A pointer to the next element
@@ -29,12 +29,12 @@ typedef struct command_history
  * struct variables -A variables for a shell
  * @array_tokens: A pointer to an array of arguments
  * @buffer:  A pointer to a buffer for storing a command
- * @exit_status: An integer to handle the exit status of a command
+ * @status: An integer to handle the exit status of a command
  * @argv:  an array of arguments at the opening of the shell
  * @counter: An integer for counting commands entered
  * @env: A pointer to an array of environment variables
- * @command_array: an array of commands
- * @cmd_history: A pointer to a structure
+ * @commands: an array of commands
+ * @history: A pointer to a structure
  * @reverse_history: structure
  */
 typedef struct variables
@@ -50,9 +50,9 @@ typedef struct variables
 	history_t *reverse_history;
 } vars_t;
 /**
- * struct builtins - a struct for the builtin functions
- * @name: A pointer to a character string that stores the name of the builtin command
- * @f: A function pointer that points to the implementation of the corresponding builtin function.
+ * struct builtin_command - a struct for the builtin functions
+ * @name: A pointer to a character string that stores the name
+ * @f: A function pointer that points to the implementation
  */
 typedef struct builtin_command
 {
